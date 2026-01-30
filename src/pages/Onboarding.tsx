@@ -47,30 +47,20 @@ export const Onboarding = () => {
                     </div>
                     <button
                         onClick={handleLogout}
-                        className="btn btn-secondary px-3 py-1.5 text-xs"
+                        className="btn btn-secondary px-3 py-1.5 text-xs cursor-pointer"
                     >
                         Log out
                     </button>
                 </div>
 
                 <div className="mb-8">
-                    <div className="flex items-center justify-between mb-6">
+                    <div className="mb-6">
                         <span className="text-sm font-medium text-slate-500">
                             Step {currentStep} of {steps.length}
                         </span>
-                        <span className="text-sm text-slate-400">
-                            {Math.round((currentStep / steps.length) * 100)}% complete
-                        </span>
                     </div>
 
-                    <div className="h-1 bg-slate-100 rounded-full overflow-hidden">
-                        <div
-                            className="h-full bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-full transition-all duration-500 ease-out"
-                            style={{ width: `${(currentStep / steps.length) * 100}%` }}
-                        />
-                    </div>
-
-                    <div className="flex justify-between mt-6">
+                    <div className="flex justify-between mb-3">
                         {steps.map((step, index) => {
                             const stepNum = index + 1;
                             const isCompleted = currentStep > stepNum;
@@ -79,25 +69,30 @@ export const Onboarding = () => {
 
                             return (
                                 <div key={step.label} className="flex flex-col items-center">
-                                    <div
-                                        className={`
-                      w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium
-                      transition-all duration-300 ease-out
-                      ${isCompleted
-                                                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 scale-100'
-                                                : isCurrent
-                                                    ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 ring-4 ring-indigo-100'
-                                                    : 'bg-slate-100 text-slate-400'
-                                            }
-                    `}
-                                    >
-                                        {isCompleted ? (
-                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                                            </svg>
-                                        ) : (
-                                            stepNum
+                                    <div className="relative">
+                                        {isCurrent && (
+                                            <span className="absolute inset-0 rounded-full bg-indigo-400 animate-soft-ping" />
                                         )}
+                                        <div
+                                            className={`
+                          relative w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium
+                          transition-all duration-300 ease-out
+                          ${isCompleted
+                                                    ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 scale-100'
+                                                    : isCurrent
+                                                        ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30'
+                                                        : 'bg-slate-100 text-slate-400'
+                                                }
+                        `}
+                                        >
+                                            {isCompleted ? (
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            ) : (
+                                                stepNum
+                                            )}
+                                        </div>
                                     </div>
                                     <span className={`
                     mt-2 text-xs font-medium transition-colors duration-200
@@ -114,6 +109,13 @@ export const Onboarding = () => {
                                 </div>
                             );
                         })}
+                    </div>
+
+                    <div className="h-1 bg-slate-100 rounded-full overflow-hidden mt-4">
+                        <div
+                            className="h-full progress-bar-shimmer rounded-full transition-all duration-500 ease-out"
+                            style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
+                        />
                     </div>
                 </div>
 

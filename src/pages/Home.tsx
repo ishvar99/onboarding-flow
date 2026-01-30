@@ -76,7 +76,7 @@ export const Home = () => {
                         </div>
                         <button
                             onClick={handleLogout}
-                            className="btn btn-secondary px-4 py-2 text-sm"
+                            className="btn btn-secondary px-4 py-2 text-sm cursor-pointer"
                         >
                             Log out
                         </button>
