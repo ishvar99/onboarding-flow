@@ -60,7 +60,9 @@ export const Onboarding = () => {
                         </span>
                     </div>
 
-                    <div className="flex justify-between mb-3">
+                    <div className="relative flex justify-between mb-3">
+                        <div className="absolute top-5 left-0 right-0 h-px bg-slate-200/80" style={{ marginLeft: '20px', marginRight: '20px' }} />
+                        
                         {steps.map((step, index) => {
                             const stepNum = index + 1;
                             const isCompleted = currentStep > stepNum;
@@ -68,7 +70,7 @@ export const Onboarding = () => {
                             const isPending = currentStep < stepNum;
 
                             return (
-                                <div key={step.label} className="flex flex-col items-center">
+                                <div key={step.label} className="flex flex-col items-center relative z-10 bg-gradient-to-br from-slate-50 via-slate-50 to-indigo-50/30">
                                     <div className="relative">
                                         {isCurrent && (
                                             <span className="absolute inset-0 rounded-full bg-indigo-400 animate-soft-ping" />
